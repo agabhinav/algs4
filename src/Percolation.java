@@ -35,7 +35,7 @@ public class Percolation {
             ufNoBottom = new WeightedQuickUnionUF(n*n + 1); // no bottom virtual site
             sites = new boolean[n][n];    // all sites blocked
             topVirtualSite = 0;
-            bottomVirtualSite = gridSize*gridSize + 1;
+            bottomVirtualSite = n*n + 1;
             }
     }
     
