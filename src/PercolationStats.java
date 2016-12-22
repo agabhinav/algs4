@@ -15,12 +15,10 @@ public class PercolationStats {
     private int trials; // number of experiments
     private int openSites; // No. of open sites in each experiment (percolates)
     private int totalSites; // n*n
-    private Percolation perc; // object of Percolation data type
-    private double[] fractionOfOpenSites = null; // array to store fraction 
-    // of open sites in each experiment, when the system percolates
+    private double[] fractionOfOpenSites = null; // array to store fraction of open sites in each experiment when percolates
     
     /**
-     * Perform trials independent experiments on an n-by-n grid
+     * Perform trials independent experiments on an n-by-n grid.
      * @param n grid-size n-by-n where n {@literal >} 0
      * @param trials number of computation experiments {@literal >} 0
      */
@@ -37,7 +35,7 @@ public class PercolationStats {
         
         for (int t = 0; t < trials; t++) {
             openSites = 0; // reset open sites for each experiment
-            perc = new Percolation(this.n); // create new Percolation object
+            Percolation perc = new Percolation(this.n); // create new Percolation object
             // n*n grid of blocked sites - initially does not percolate
             
             while (!perc.percolates()) {
@@ -58,7 +56,7 @@ public class PercolationStats {
     }
     
     /**
-     * Calculate sample mean of percolation threshold across all experiments
+     * Calculate sample mean of percolation threshold across all experiments.
      * @return sample mean of percolation threshold
      */
     public double mean() {
@@ -66,8 +64,7 @@ public class PercolationStats {
     }
     
     /**
-     * Calculate sample standard deviation of percolation threshold
-     * across all experiments.
+     * Calculate sample standard deviation of percolation threshold across all experiments.
      * @return sample standard deviation of percolation threshold
      */
     public double stddev() {
@@ -75,7 +72,7 @@ public class PercolationStats {
     }
     
     /**
-     * Calculate low endpoint of 95% confidence interval across all experiments
+     * Calculate low endpoint of 95% confidence interval across all experiments.
      * @return low endpoint of 95% confidence interval
      */
     public double confidenceLo() {
@@ -83,7 +80,7 @@ public class PercolationStats {
     }
 
     /**
-     * Calculate high endpoint of 95% confidence interval across all experiments
+     * Calculate high endpoint of 95% confidence interval across all experiments.
      * @return high endpoint of 95% confidence interval
      */
     public double confidenceHi() {
@@ -91,18 +88,14 @@ public class PercolationStats {
     }
 
     /**
-     * Test client to perform T independent computational experiments on an 
-     * n-by-n grid, and prints the mean, standard deviation, and the 
-     * 95% confidence interval for the percolation threshold
+     * Test client to perform T independent computational experiments on an n-by-n grid, and prints the mean, 
+     * standard deviation, and the 95% confidence interval for the percolation threshold.
      * @param args n (for n-by-n grid), T (number of experiments)
      */
-    public static void main(String[] args) {
- 
+    public static void main(String[] args) { 
         int gridSize = Integer.parseInt(args[0]); // n-by-n grid
         int numberOfExperiments = Integer.parseInt(args[1]); // number of experiments
         PercolationStats ps = new PercolationStats(gridSize, numberOfExperiments);
-        
-
         System.out.println("mean                       = " + ps.mean());
         System.out.println("stddev                     = " + ps.stddev());
         System.out.println("95% confidence interval    = " + ps.confidenceLo() + ", " + ps.confidenceHi());
