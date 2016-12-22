@@ -13,10 +13,9 @@ public class PercolationStats {
     
     private int n; // grid-size n-by-n
     private int trials; // number of experiments
-    private int openSites; // number of open sites in each experiment, 
-                           //when the system percolates
+    private int openSites; // No. of open sites in each experiment (percolates)
     private int totalSites; // n*n
-    Percolation perc; // object of Percolation data type
+    private Percolation perc; // object of Percolation data type
     private double[] fractionOfOpenSites = null; // array to store fraction 
     // of open sites in each experiment, when the system percolates
     
@@ -41,8 +40,8 @@ public class PercolationStats {
             perc = new Percolation(this.n); // create new Percolation object
             // n*n grid of blocked sites - initially does not percolate
             
-            while (perc.percolates() != true) {
-                //Pick a site at random and open if it is blocked
+            while (!perc.percolates()) {
+                // Pick a site at random and open if it is blocked
                 int i = StdRandom.uniform(1, this.n + 1);
                 int j = StdRandom.uniform(1, this.n + 1);
                 if (!perc.isOpen(i,  j)) {
@@ -53,7 +52,7 @@ public class PercolationStats {
             
             // When system percolates, add fraction of open sites to the array
             fractionOfOpenSites[t] = openSites*1.0 / totalSites;
-            /*System.out.println("Trial# " + t + " Open sites " + openSites + 
+            /* System.out.println("Trial# " + t + " Open sites " + openSites + 
             ", Fraction open = " + fractionOfOpenSites[t]); */
         }
     }
@@ -79,33 +78,33 @@ public class PercolationStats {
      * Calculate low endpoint of 95% confidence interval across all experiments
      * @return low endpoint of 95% confidence interval
      */
-	public double confidenceLo() {
-	    return (mean() - (1.96 * stddev() / Math.sqrt(this.trials)));
-	}
+    public double confidenceLo() {
+        return (mean() - (1.96 * stddev() / Math.sqrt(this.trials)));
+    }
 
     /**
      * Calculate high endpoint of 95% confidence interval across all experiments
      * @return high endpoint of 95% confidence interval
-     */	
+     */
     public double confidenceHi() {
         return (mean() + (1.96 * stddev() / Math.sqrt(this.trials)));
-    }	
-	
+    }
+
     /**
      * Test client to perform T independent computational experiments on an 
      * n-by-n grid, and prints the mean, standard deviation, and the 
      * 95% confidence interval for the percolation threshold
      * @param args n (for n-by-n grid), T (number of experiments)
      */
-	public static void main(String[] args) {
+    public static void main(String[] args) {
  
-	    int n = Integer.parseInt(args[0]); // n-by-n grid
-	    int T = Integer.parseInt(args[1]); // number of experiments
-	    PercolationStats ps = new PercolationStats(n, T);
-	    
-	    System.out.println("mean                       = " + ps.mean());
-	    System.out.println("stddev                     = " + ps.stddev());
-	    System.out.println("95% confidence interval    = " + 
-	    ps.confidenceLo() + ", " + ps.confidenceHi());
-	}
+        int gridSize = Integer.parseInt(args[0]); // n-by-n grid
+        int numberOfExperiments = Integer.parseInt(args[1]); // number of experiments
+        PercolationStats ps = new PercolationStats(gridSize, numberOfExperiments);
+        
+
+        System.out.println("mean                       = " + ps.mean());
+        System.out.println("stddev                     = " + ps.stddev());
+        System.out.println("95% confidence interval    = " + ps.confidenceLo() + ", " + ps.confidenceHi());
+    }
 }
