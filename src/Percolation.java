@@ -81,7 +81,6 @@ public class Percolation {
                 ufNoBottom.union(currentSiteIndex, xyTo1D(row + 1, col));
             }                
         }
-
     }
     
     /**
@@ -106,8 +105,7 @@ public class Percolation {
      */
     public boolean isFull(int row, int col) { // use uf object with no bottom site
         validateIndices(row, col);
-        return (isOpen(row, col) && 
-                ufNoBottom.connected(xyTo1D(row, col), topVirtualSite));
+        return (isOpen(row, col) && ufNoBottom.connected(xyTo1D(row, col), topVirtualSite));
     }
     
     /**
@@ -119,7 +117,7 @@ public class Percolation {
     }
     
     /**
-     * Map from a 2-dimensional (row, column) pair to a 1-dimensional union find object index
+     * Map from a 2-dimensional (row, column) pair to a 1-dimensional union find object index.
      * @param x site's row-index [1, n]
      * @param y site's column-index [1, n]
      * @return an integer indicating 1-d UF object index
